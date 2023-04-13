@@ -1,7 +1,7 @@
-import Register from "./register";
+import Rigester from './Register'
 
 function App() {
-  return <Register />;
+  return <Rigester />;
 }
 
 export default App;
