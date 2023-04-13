@@ -13,6 +13,7 @@ const jwtSecret = process.env.JWT_SECRET;
 
 const app = express();
 app.use(express.json());
+/* ---------------------  FIX CORS CREDENTIOALS ERROR --------------------- */
 app.use(
   cors({
     origin: true,
@@ -30,7 +31,7 @@ app.post("/register", async (req, res) => {
     const createdUser = await User.create({ userName, password });
 
     await jwt.sign(
-      { userId: createdUser._id, userName },
+      { id: createdUser._id, userName },
       jwtSecret,
       {},
       (err, token) => {
@@ -46,14 +47,13 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.get('/user/:userId', async (req, res) => {
-  
+app.get("/user/:userId", async (req, res) => {
   res.status(200).json({
-    status: 'sucess',
-    message: {
-      
-    }
-  })
-})
+    status: "sucess",
+    message: {},
+  });
+});
 
-app.listen(4040, () => console.log("Example app listening on port 4040!"));
+const PORT = process.env.PORT;
+
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
