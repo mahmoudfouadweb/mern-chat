@@ -2,10 +2,9 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
   {
-    username: {
+    userName: {
       type: String,
       required: true,
-      unique: [true, "The User Name already existing"],
     },
     password: { type: String, required: true },
   },
