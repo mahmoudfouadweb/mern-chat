@@ -6,8 +6,13 @@ const Register = () => {
 
   async function register(e) {
     e.preventDefault();
-    
-    await axios.post('register', { userName, password });
+
+    await axios
+      .post('register', { userName, password })
+      .then(() => {
+        setPassword('');
+        setUserName('');
+      });
   }
   return (
     <div className="bg-blue-50 h-screen flex items-center">

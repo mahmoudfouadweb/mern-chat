@@ -13,15 +13,11 @@ const jwtSecret = process.env.JWT_SECRET;
 
 const app = express();
 app.use(express.json());
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//   next();
-// });
-
 app.use(
-  cors()
+  cors({
+    origin: true,
+    credentials: true,
+  })
 );
 
 app.get("/test", (req, res) => {
@@ -50,4 +46,14 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.listen(4040, () => console.log("Example app listening on port 4000!"));
+app.get('/user/:userId', async (req, res) => {
+  
+  res.status(200).json({
+    status: 'sucess',
+    message: {
+      
+    }
+  })
+})
+
+app.listen(4040, () => console.log("Example app listening on port 4040!"));
