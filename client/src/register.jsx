@@ -3,10 +3,11 @@ import axios from 'axios';
 const Register = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+
   async function register(e) {
     e.preventDefault();
-    if (!userName || !password) return;
-    await axios.post('/register', { userName, password });
+    
+    await axios.post('register', { userName, password });
   }
   return (
     <div className="bg-blue-50 h-screen flex items-center">
