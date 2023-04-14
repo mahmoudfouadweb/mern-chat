@@ -21,6 +21,7 @@ app.use(
     credentials: true
   })
 );
+app.use(cookieParser());
 
 app.get('/test', async (req, res) => {
   res.json('test ok');
@@ -29,14 +30,19 @@ app.get('/test', async (req, res) => {
 app.get('/profile', async (req, res) => {
   const token = req.cookies?.token;
   if (token) {
-    jwt.verify(token, jwtSecret, {}, (err, userData) => {
-      if (err) throw err;
-      const { id, userName } = userData;
-      res.json({
-        id,
-        userName
-      });
-    });
+    jwt.verify(
+      token,
+      jwtSecret,
+      { sameSite: 'none', secure: true },
+      (err, userData) => {
+        if (err) throw err;
+        const { id, userName } = userData;
+        res.json({
+          id,
+          userName
+        });
+      }
+    );
     console.log(token);
   } else {
     res.status(401).json({
@@ -58,7 +64,7 @@ app.post('/register', async (req, res) => {
       (err, token) => {
         if (err) throw err;
         res.cookie('token', token).status(201).json({
-          _id: createdUser._id
+          _id: createdUser._id, userName
         });
       }
     );
