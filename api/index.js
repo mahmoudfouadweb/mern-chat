@@ -58,7 +58,6 @@ app.post('/login', async (req, res) => {
       });
   }
 });
-
 /* ----------------------------- REGISTER ROUTE ----------------------------- */
 app.post('/register', async (req, res) => {
   const { userName, password } = await req.body;
