@@ -42,8 +42,8 @@ app.get('/profile', async (req, res) => {
           userName
         });
       }
+
     );
-    console.log(token);
   } else {
     res.status(401).json({
       status: 'fail',

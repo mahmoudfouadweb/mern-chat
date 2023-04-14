@@ -1,14 +1,16 @@
 import { useContext, useState } from 'react';
 import axios from 'axios';
 import { UserContext } from '../UserContext';
-const Register = () => {
+const RegisterAndLoginForm = () => {
+  /* ---------------------------------- STATES --------------------------------- */
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const { setUserName: setLoggedInUserName, setId } = useContext(UserContext);
   const [isLogin, setIsLogin] = useState(false);
+
   const url = !isLogin ? 'register' : 'login';
-  
-  async function register(e) {
+
+  async function handleRegisterAndLogin(e) {
     e.preventDefault();
     if (!userName || !password) return;
     const { data } = await axios.post(url, { userName, password });
@@ -17,7 +19,7 @@ const Register = () => {
   }
   return (
     <div className="bg-blue-50 h-screen flex items-center">
-      <form className="w-64 mx-auto mb-12" onSubmit={register}>
+      <form className="w-64 mx-auto mb-12" onSubmit={handleRegisterAndLogin}>
         <input
           value={userName}
           onChange={e => setUserName(e.target.value)}
@@ -50,4 +52,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterAndLoginForm;
