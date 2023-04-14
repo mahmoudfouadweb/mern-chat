@@ -1,16 +1,23 @@
+import { useEffect } from 'react';
+
 const Chat = () => {
+  const [ws,setWt] = useState(null)
+  useEffect(() => {
+    new WebSocket('ws://localhost:4040');
+  }, []);
   return (
     <div className="flex h-screen">
-      <div className=" bg-blue-100 w-1/3">contacts</div>
-      <div className=" bg-blue-300 w-2/3">
-        <div>messages</div>
+      <div className=" bg-white w-1/3">contacts</div>
+
+      <div className=" bg-blue-100 flex flex-col p-2 w-2/3">
+        <div className="flex-grow">messages</div>
         <div className="flex mx-2 gap-2">
           <input
             type="text"
-            className="bg-white flex-grow border p-2"
+            className="bg-white flex-grow border p-2 rounded-md"
             placeholder="type your message here"
           />
-          <button className=" bg-blue-500 p-2 text-white">
+          <button className=" bg-blue-500 p-2 text-white rounded-md">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

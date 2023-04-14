@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const bcyrpt = require('bcryptjs');
 const User = require('./models/User');
+const ws = require('ws');
 
 dotenv.config({ path: './config.env' });
 mongoose.connect(
@@ -116,4 +117,12 @@ app.get('/profile', async (req, res) => {
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+const server = app.listen(PORT, () =>
+  console.log(`Example app listening on port ${PORT}!`)
+);
+
+/* ---------------------------- WEB SOCKET SERVER --------------------------- */
+const wss = new ws.WebSocketServer({ server });
+wss.on('connection', connection => {
+  console.log('a user connected');
+});
