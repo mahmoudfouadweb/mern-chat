@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import RegisterAndLoginForm from './src/RegisterAndLoginForm';
 import { UserContext } from './UserContext';
-import Chat from './src/Chat';
+import RegisterAndLoginForm from './RegisterAndLoginForm';
+import Chat from './Chat';
 
 const Routes = () => {
   const { userName, id } = useContext(UserContext);

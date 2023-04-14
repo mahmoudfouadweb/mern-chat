@@ -1,7 +1,6 @@
-import React from 'react';
 import { useContext, useState } from 'react';
 import axios from 'axios';
-import { UserContext } from '../UserContext';
+import { UserContext } from './UserContext';
 const RegisterAndLoginForm = () => {
   /* ---------------------------------- STATES --------------------------------- */
   const [userName, setUserName] = useState('');
