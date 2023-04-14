@@ -11,7 +11,7 @@ dotenv.config({ path: './config.env' });
 mongoose.connect(
   process.env.MONGODB_URI.replace('<password>', process.env.PASSWORD)
 );
-const jwtSecret = process.env.JWT_SECRET;
+const jwtSecretkey = process.env.JWT_SECRET;
 const bcryptSalt = bcyrpt.genSaltSync(10);
 
 const app = express();
@@ -31,13 +31,31 @@ app.get('/test', async (req, res) => {
 
 /* ------------------------------- LOGIN ROUTE ------------------------------ */
 app.post('/login', async (req, res) => {
-  const { userName, password } = req.body;
+  const { userName, password } = await req.body;
   const foundedUser = await User.findOne({ userName });
   if (foundedUser) {
-    const passOk = bcyrpt.compare(password, foundedUser.password);
-    if (passOk) {
-      jwt.sign();
-    }
+    bcyrpt
+      .compare(password, foundedUser.password)
+      .then(passOk => {
+        if (passOk) {
+          const payLoad = {
+            userId: foundedUser._id,
+            userName
+          };
+          jwt.sign(payLoad, jwtSecretkey, {}, (err, token) => {
+            if (err) throw err;
+            res.cookie('token', token).json({
+              status: 'sucess',
+              userId: foundedUser._id
+            });
+          });
+        } else {
+          res.json('password incorrect');
+        }
+      })
+      .catch(err => {
+        console.log('password error 💥', err);
+      });
   }
 });
 
@@ -50,17 +68,18 @@ app.post('/register', async (req, res) => {
       userName,
       password: hashedPassword
     });
+    const payLoad = {
+      userId: createdUser._id,
+      userName
+    };
     jwt.sign(
-      {
-        _id: req.body._id,
-        userName
-      },
-      jwtSecret,
-      {},
+      payLoad,
+      jwtSecretkey,
+      { sameSite: 'none', secure: true },
       (err, token) => {
         if (err) throw err;
         res.cookie('token', token).status(201).json({
-          _id: createdUser._id,
+          userId: payLoad.userId,
           userName
         });
       }
@@ -77,13 +96,13 @@ app.get('/profile', async (req, res) => {
   if (token) {
     jwt.verify(
       token,
-      jwtSecret,
+      jwtSecretkey,
       { sameSite: 'none', secure: true },
       (err, userData) => {
         if (err) throw err;
-        const { id, userName } = userData;
+        const { userId, userName } = userData;
         res.json({
-          id,
+          id: userId,
           userName
         });
       }
