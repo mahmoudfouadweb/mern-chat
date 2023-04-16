@@ -1,10 +1,16 @@
+import { useState } from 'react';
 import { useEffect } from 'react';
 
 const Chat = () => {
-  const [ws,setWt] = useState(null)
+  const [isWs, setIsWt] = useState(null);
   useEffect(() => {
-    new WebSocket('ws://localhost:4040');
+    const we = new WebSocket('ws://localhost:4040');
+    setIsWt(we);
+    we.addEventListener('message', handleMessage);
   }, []);
+  function handleMessage(e) {
+    console.log('newMessage :>> ', e);
+  }
   return (
     <div className="flex h-screen">
       <div className=" bg-white w-1/3">contacts</div>
