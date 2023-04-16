@@ -125,4 +125,6 @@ const server = app.listen(PORT, () =>
 const wss = new ws.WebSocketServer({ server });
 wss.on('connection', connection => {
   console.log('a user connected');
+  connection.send('Hello')
 });
+
