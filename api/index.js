@@ -123,8 +123,36 @@ const server = app.listen(PORT, () =>
 
 /* ---------------------------- WEB SOCKET SERVER --------------------------- */
 const wss = new ws.WebSocketServer({ server });
-wss.on('connection', connection => {
+wss.on('connection', (connection, req) => {
   console.log('a user connected');
-  connection.send('Hello')
-});
+  // connection.send('Hello');
+  const cookies = req.headers.cookie;
+  if (cookies) {
+    const tokenCookiesString = cookies
+      .split(';')
+      .find(str => str.startsWith('token'));
+    if (tokenCookiesString) {
+      const token = tokenCookiesString.split('=')[1];
+      if (token) {
+        jwt.verify(token, jwtSecretkey, {}, (err, userData) => {
+          if (err) throw err;
+          const { userName, userId } = userData;
+          connection.userName = userName;
+          connection.userId = userId;
+        });
+      }
+    }
+  }
 
+  [...wss.clients].forEach(client => {
+    client.send(
+      JSON.stringify({
+        type: 'connected',
+        online: [...wss.clients].map(c => ({
+          userId: c.userId,
+          userName: c.userName
+        }))
+      })
+    );
+  });
+});

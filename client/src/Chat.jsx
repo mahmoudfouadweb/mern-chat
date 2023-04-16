@@ -9,7 +9,8 @@ const Chat = () => {
     we.addEventListener('message', handleMessage);
   }, []);
   function handleMessage(e) {
-    console.log('newMessage :>> ', e.data);
+    const data = JSON.parse(e.data);
+    console.log('data :>> ', data);
   }
   return (
     <div className="flex h-screen">
