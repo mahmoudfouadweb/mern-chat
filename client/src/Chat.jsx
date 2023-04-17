@@ -40,11 +40,14 @@ const Chat = () => {
           Chat Mern
         </div>
         {Object.keys(onlinePeople)
-          .map(id => {
+          .map(userId => {
             return (
-              <div key={id} className=" border-b border-gray-100 py-2 flex gap-2 ">
-                <Avatar userName={onlinePeople[id]}/>
-                {onlinePeople[id]}
+              <div
+                key={userId}
+                className=" border-b border-gray-100 py-2 flex gap-2 "
+              >
+                <Avatar userName={onlinePeople[userId]} userId={userId} />
+                {onlinePeople[userId]}
               </div>
             );
           })
