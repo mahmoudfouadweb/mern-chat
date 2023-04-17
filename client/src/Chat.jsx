@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Avatar from './Avatar';
 
 const Chat = () => {
@@ -46,7 +45,7 @@ const Chat = () => {
           return (
             <div
               key={userId}
-              className=" border-b border-gray-100 py-2 flex gap-2 "
+              className=" border-b border-gray-100 py-2 flex gap-2 cursor-pointer"
             >
               <Avatar userName={onlinePeople[userId]} userId={userId} />
               <span className="text-gray-700"> {onlinePeople[userId]}</span>
