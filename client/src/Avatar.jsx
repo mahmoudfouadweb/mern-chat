@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Avatar = ({ userId, userName }) => {
+const Avatar = (userId, userName) => {
   // prettier-ignore
   const colors = [
     'bg-red-500',
@@ -18,7 +18,7 @@ const Avatar = ({ userId, userName }) => {
   const colorIndex = userIdBase10 % colors.length;
   const color = colors[colorIndex];
   return (
-    <div className={'w-8 rounded-full text-center uppercase' + color}>
+    <div className={'w-8 rounded-full text-center uppercase ' + color}>
       {userName[0]}
     </div>
   );

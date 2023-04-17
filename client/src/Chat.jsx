@@ -39,19 +39,17 @@ const Chat = () => {
           </svg>
           Chat Mern
         </div>
-        {Object.keys(onlinePeople)
-          .map(userId => {
-            return (
-              <div
-                key={userId}
-                className=" border-b border-gray-100 py-2 flex gap-2 "
-              >
-                <Avatar userName={onlinePeople[userId]} userId={userId} />
-                {onlinePeople[userId]}
-              </div>
-            );
-          })
-          .sort()}
+        {Object.keys(onlinePeople).map(userId => {
+          return (
+            <div
+              key={userId}
+              className=" border-b border-gray-100 py-2 flex gap-2 "
+            >
+              <Avatar userName={onlinePeople[userId]} userId={userId} />
+              {onlinePeople[userId]}
+            </div>
+          );
+        })}
       </div>
 
       <div className=" bg-blue-100 flex flex-col p-2 w-2/3">
