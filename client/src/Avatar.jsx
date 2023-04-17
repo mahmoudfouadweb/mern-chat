@@ -14,8 +14,11 @@ const Avatar = ({ userId, userName }) => {
     'bg-gray-500',
     'bg-orange-500'
   ];
+  const userIdBase10 = parseInt(userId, 16);
+  const colorIndex = userIdBase10 % colors.length;
+  const color = colors[colorIndex];
   return (
-    <div className=" w-8 bg-emerald-200 rounded-full text-center uppercase">
+    <div className={'w-8 rounded-full text-center uppercase'+ color}>
       {userName[0]}
     </div>
   );
