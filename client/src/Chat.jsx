@@ -5,11 +5,13 @@ import Avatar from './Avatar';
 const Chat = () => {
   const [isWs, setIsWt] = useState(null);
   const [onlinePeople, setOnlinePeople] = useState([]);
+
   useEffect(() => {
     const we = new WebSocket('ws://localhost:4040');
     setIsWt(we);
     we.addEventListener('message', handleMessage);
   }, []);
+
   function showOnlinePeople(peopleArray) {
     const people = {};
     peopleArray.forEach(({ userId, userName }) => {
@@ -24,6 +26,7 @@ const Chat = () => {
       showOnlinePeople(data.online);
     }
   }
+
   return (
     <div className="flex h-screen">
       <div className=" bg-white w-1/3 p-4 ">
@@ -46,7 +49,7 @@ const Chat = () => {
               className=" border-b border-gray-100 py-2 flex gap-2 "
             >
               <Avatar userName={onlinePeople[userId]} userId={userId} />
-              {onlinePeople[userId]}
+              <span className="text-gray-700"> {onlinePeople[userId]}</span>
             </div>
           );
         })}
