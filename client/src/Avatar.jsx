@@ -17,7 +17,7 @@ const Avatar = ({ userId, userName }) => {
   const color = colors[colorIndex];
 
   return (
-    <div className={'w-8 rounded-full text-center uppercase ' + color}>
+    <div className={'w-8 h-8 relative mx-4 text-center uppercase justify-center rounded-full flex items-center  ' + color}>
       {userName[0]}
     </div>
   );
