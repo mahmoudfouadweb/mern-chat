@@ -143,9 +143,12 @@ wss.on('connection', (connection, req) => {
     }
   }
 
-  connection.on('message', message => {
-    message = JSON.parse(message.toString());
-    console.log('message :>> ', message);
+  connection.on('message', async message => {
+    const messageData =  JSON.parse(message.toString());
+    const { reciepient, text } = await messageData;
+    if (reciepient && text) {
+      [...wss].filter(client = client.userId === reciepient)
+    }
   });
 
   /* ------- Notify everyone about online people (when someone connects) ------ */

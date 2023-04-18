@@ -41,10 +41,8 @@ const Chat = () => {
     e.preventDefault();
     isWs.send(
       JSON.stringify({
-        message: {
-          recipient: selectedUser,
-          text: newMessage
-        }
+        recipient: selectedUser,
+        text: newMessage
       })
     );
   }
