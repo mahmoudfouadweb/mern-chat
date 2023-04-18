@@ -9,7 +9,6 @@ const Chat = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const { userName, id } = useContext(UserContext);
   const [newMessage, setNewMessage] = useState('');
-  console.log('newMessage :>> ', newMessage);
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:4040');
     setIsWt(ws);
