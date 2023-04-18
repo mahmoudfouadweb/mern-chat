@@ -144,7 +144,8 @@ wss.on('connection', (connection, req) => {
   }
 
   connection.on('message', message => {
-    message = message.toString();
+    message = JSON.parse(message.toString());
+    console.log('message :>> ', message);
   });
 
   /* ------- Notify everyone about online people (when someone connects) ------ */
